@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#e2d8d8"
+    android:layout_height="100dp">
+
+
+    <ImageView
+        android:id="@+id/imageSorting"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignEnd="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_marginEnd="92dp"
+        android:layout_marginRight="92dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/titleSorting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/imageSorting"
+        android:layout_toStartOf="@+id/imageSorting"
+        android:text="name"
+        android:textColor="#1d2020"
+        android:textSize="18dp"
+        android:textStyle="bold|italic" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2fea2c"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/linearLayout"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+    <!--&lt;!&ndash;android:id="@+id/title"&ndash;&gt;-->
+
+</RelativeLayout>
