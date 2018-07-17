@@ -13,6 +13,7 @@ import com.example.tornado.tabsmaterialdesign.R;
 import com.example.tornado.tabsmaterialdesign.model.ModelMovies;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,6 +57,21 @@ public class RecyclerSortingAdapter extends RecyclerView.Adapter<RecyclerSorting
 
         return 0;
     }
+
+
+
+
+    //for search
+    public void setFilter(List<ModelMovies> movieModels){
+        moviesList = new ArrayList<>();
+        moviesList.addAll(movieModels);
+        notifyDataSetChanged();
+    }
+
+
+
+
+
 
     public class SortingViewHolder extends RecyclerView.ViewHolder{
         TextView textView;

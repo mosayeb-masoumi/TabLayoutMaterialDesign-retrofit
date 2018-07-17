@@ -1,10 +1,13 @@
 package com.example.tornado.tabsmaterialdesign.adapter;
 
 import android.content.Context;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +15,7 @@ import com.example.tornado.tabsmaterialdesign.model.ModelMovies;
 import com.example.tornado.tabsmaterialdesign.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +27,7 @@ public class RecyclerNewAdapter extends RecyclerView.Adapter<RecyclerNewAdapter.
     List<ModelMovies> moviesList;
     Context context;
 
+
     public RecyclerNewAdapter(List<ModelMovies> moviesList, Context context) {
         this.moviesList = moviesList;
         this.context = context;
@@ -32,6 +37,10 @@ public class RecyclerNewAdapter extends RecyclerView.Adapter<RecyclerNewAdapter.
         this.moviesList = movieList;
         notifyDataSetChanged();
     }
+
+
+
+
 
 
     @Override
@@ -58,6 +67,16 @@ public class RecyclerNewAdapter extends RecyclerView.Adapter<RecyclerNewAdapter.
         }
         return 0;
     }
+
+
+   //for search
+    public void setFilter(List<ModelMovies> movieModels){
+        moviesList = new ArrayList<>();
+        moviesList.addAll(movieModels);
+        notifyDataSetChanged();
+    }
+
+
 
 
 

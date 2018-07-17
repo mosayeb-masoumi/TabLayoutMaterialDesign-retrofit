@@ -1,15 +1,25 @@
 package com.example.tornado.tabsmaterialdesign.fragment;
 
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.tornado.tabsmaterialdesign.activity.MainActivity;
 import com.example.tornado.tabsmaterialdesign.utility.ApiClient;
 import com.example.tornado.tabsmaterialdesign.interfase.ApiInterface;
 import com.example.tornado.tabsmaterialdesign.model.ModelMovies;
@@ -27,9 +37,9 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewFragment extends Fragment {
+public class NewFragment extends Fragment implements android.support.v7.widget.SearchView.OnQueryTextListener {
 
-    private SearchView searchView;
+
     RecyclerView recyclerView;
     RecyclerNewAdapter adapter;
     List<ModelMovies> moviesList;
@@ -42,6 +52,7 @@ public class NewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
 
@@ -51,6 +62,8 @@ public class NewFragment extends Fragment {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_new, container, false);
 
+
+        setHasOptionsMenu(true);
 
         moviesList= new ArrayList<>();
         adapter=new RecyclerNewAdapter(moviesList,getContext());
@@ -66,6 +79,7 @@ public class NewFragment extends Fragment {
 
         return view;
     }
+
 
 
     private void loadContent() {
@@ -92,4 +106,64 @@ public class NewFragment extends Fragment {
 
 
 
+
+
+
+
+    //for searching
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_menu, menu);
+
+        final MenuItem item = menu.findItem(R.id.action_search);
+//        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+//        final SearchView searchView=(SearchView) MenuItemCompat.getActionView(item) ;
+          final android.support.v7.widget.SearchView searchView=(android.support.v7.widget.SearchView)MenuItemCompat.getActionView(item);
+         searchView.setOnQueryTextListener(this);
+
+        MenuItemCompat.setOnActionExpandListener(item,
+                new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+                        // Do something when collapsed
+                        adapter.setFilter(moviesList);
+                        return true; // Return true to collapse action view
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        // Do something when expanded
+                        return true; // Return true to expand action view
+                    }
+                });
+    }
+
+    //for searching
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        final List<ModelMovies> filteredModelList = filter(moviesList, newText);
+        adapter.setFilter(filteredModelList);
+        return true;
+    }
+
+    //for searching
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+
+    //for searching
+    private List<ModelMovies> filter(List<ModelMovies> models, String query) {
+        query = query.toLowerCase();
+
+        final List<ModelMovies> filteredModelList = new ArrayList<>();
+        for (ModelMovies model : models) {
+            final String text = model.getTitle().toLowerCase();
+            if (text.contains(query)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
+    }
 }

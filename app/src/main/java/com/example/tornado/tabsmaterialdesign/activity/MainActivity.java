@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
 //    private Toolbar toolbar;
     Toolbar toolbar;
-    private SearchView searchView;
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -105,50 +105,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search)
-                .getActionView();
-        searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-//             movieAdapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query) {
-//                movieAdapter.getFilter().filter(query);
-                return false;
-            }
-        });
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_search) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (!searchView.isIconified()) {
-            searchView.setIconified(true);
-            return;
-        }
-        super.onBackPressed();
-    }
 }
 

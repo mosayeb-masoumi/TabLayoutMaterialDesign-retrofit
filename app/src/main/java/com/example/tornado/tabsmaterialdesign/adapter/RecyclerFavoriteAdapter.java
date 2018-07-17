@@ -12,6 +12,7 @@ import com.example.tornado.tabsmaterialdesign.model.ModelMovies;
 import com.example.tornado.tabsmaterialdesign.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,6 +55,16 @@ public class RecyclerFavoriteAdapter extends RecyclerView.Adapter<RecyclerFavori
         }
         return 0;
     }
+
+
+   // for searching
+    public void setFilter(List<ModelMovies> movieModels){
+        moviesList = new ArrayList<>();
+        moviesList.addAll(movieModels);
+        notifyDataSetChanged();
+    }
+
+
 
 
     public class FavoriteViewHoder extends RecyclerView.ViewHolder {
