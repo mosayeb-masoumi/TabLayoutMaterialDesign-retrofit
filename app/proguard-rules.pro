@@ -19,3 +19,20 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#tapsel
+-keepattributes Signature
+-keepattributes *Annotation*
+-keepattributes EnclosingMethod
+-keepattributes InnerClasses
+-keep class sun.misc.Unsafe { *; }
+-dontwarn sun.misc.**
+-keep class * implements ir.tapsell.gson.TypeAdapterFactory
+-keep class * implements ir.tapsell.gson.JsonSerializer
+-keep class * implements ir.tapsell.gson.JsonDeserializer
+-keepclassmembers enum * { *; }
+-keep class **.R$* { *; }
+-keep interface ir.tapsell.sdk.NoProguard
+-keep class * implements ir.tapsell.sdk.NoProguard { *; }
+-keep interface * extends ir.tapsell.sdk.NoProguard { *; }
+-keep class ir.tapsell.sdk.** implements java.io.Serializable { *; }

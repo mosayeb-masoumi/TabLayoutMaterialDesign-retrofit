@@ -34,6 +34,17 @@ public class RecyclerFavoriteAdapter extends RecyclerView.Adapter<RecyclerFavori
         notifyDataSetChanged();
     }
 
+
+
+
+    //for clearingd data when use swipeRefresh
+    public void clear(){
+        moviesList.clear();
+        notifyDataSetChanged();
+    }
+
+
+
     @Override
     public RecyclerFavoriteAdapter.FavoriteViewHoder onCreateViewHolder(ViewGroup parent, int viewType) {
        View view = LayoutInflater.from(context).inflate(R.layout.rv_row_favorite,parent,false);

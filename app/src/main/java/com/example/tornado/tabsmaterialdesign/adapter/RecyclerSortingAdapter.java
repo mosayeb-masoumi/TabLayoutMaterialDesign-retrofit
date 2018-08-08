@@ -35,6 +35,14 @@ public class RecyclerSortingAdapter extends RecyclerView.Adapter<RecyclerSorting
     }
 
 
+    //for clearingd data when use swipeRefresh
+    public void clear(){
+        moviesList.clear();
+        notifyDataSetChanged();
+    }
+
+
+
     @Override
     public RecyclerSortingAdapter.SortingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.rv_row_sorting,parent,false);

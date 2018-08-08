@@ -39,7 +39,11 @@ public class RecyclerNewAdapter extends RecyclerView.Adapter<RecyclerNewAdapter.
     }
 
 
-
+    //for clearingd data when use swipeRefresh
+    public void clear(){
+        moviesList.clear();
+        notifyDataSetChanged();
+    }
 
 
 

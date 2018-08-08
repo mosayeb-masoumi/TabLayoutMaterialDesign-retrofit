@@ -4,6 +4,7 @@ package com.example.tornado.tabsmaterialdesign.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -33,6 +34,7 @@ public class SortingFragment extends Fragment implements SearchView.OnQueryTextL
     RecyclerView recyclerView;
     RecyclerSortingAdapter adapter;
     List<ModelMovies> moviesList;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     //    public SortingFragment() {
 //        // Required empty public constructor
@@ -59,12 +61,23 @@ public class SortingFragment extends Fragment implements SearchView.OnQueryTextL
 
 
         recyclerView = view.findViewById(R.id.rv_sorting);
+        swipeRefreshLayout=view.findViewById(R.id.sorting_refresh_layout);
 
         RecyclerView.LayoutManager mLayoutMAnager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutMAnager);
         recyclerView.setAdapter(adapter);
 
         loadContent();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.clear();
+                loadContent();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
 
         return view;
 

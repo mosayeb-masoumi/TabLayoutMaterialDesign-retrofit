@@ -4,6 +4,7 @@ package com.example.tornado.tabsmaterialdesign.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class FavoriteFragment extends Fragment implements android.support.v7.wid
     RecyclerView recyclerView;
     RecyclerFavoriteAdapter adapter;
     List<ModelMovies> moviesList;
+   SwipeRefreshLayout swipeRefreshLayout;
 
     public static FavoriteFragment newInstance() {
         return new FavoriteFragment();
@@ -59,15 +61,23 @@ public class FavoriteFragment extends Fragment implements android.support.v7.wid
         moviesList= new ArrayList<>();
         adapter=new RecyclerFavoriteAdapter(moviesList,getContext());
         recyclerView=(RecyclerView) view.findViewById(R.id.rv_favorite);
+        swipeRefreshLayout=view.findViewById(R.id.favorite_refresh_layout);
 
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
-
         recyclerView.setAdapter(adapter);
 
         loadContent();
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.clear();
+                loadContent();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         return  view;
     }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,6 +44,7 @@ public class NewFragment extends Fragment implements android.support.v7.widget.S
     RecyclerView recyclerView;
     RecyclerNewAdapter adapter;
     List<ModelMovies> moviesList;
+    SwipeRefreshLayout swipeRefreshLayout;
 
 //    private OnFragmentInteractionListener listener;
     public static NewFragment newInstance() {
@@ -68,14 +70,22 @@ public class NewFragment extends Fragment implements android.support.v7.widget.S
         moviesList= new ArrayList<>();
         adapter=new RecyclerNewAdapter(moviesList,getContext());
         recyclerView=(RecyclerView) view.findViewById(R.id.rv_new);
-
+        swipeRefreshLayout=view.findViewById(R.id.new_swipe_refresh);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
         recyclerView.setAdapter(adapter);
-
        loadContent();
+
+       swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+           @Override
+           public void onRefresh() {
+               adapter.clear();
+               loadContent();
+               swipeRefreshLayout.setRefreshing(false);
+           }
+       });
 
         return view;
     }
